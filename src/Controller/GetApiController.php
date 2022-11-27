@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Shared\JsonDecoder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,7 +13,7 @@ class GetApiController extends AbstractController implements Api
     {
         $jsonData = file_get_contents(self::API_URL);
 
-        $response = json_decode($jsonData);
+        $response = JsonDecoder::jsonDecode($jsonData);
 
         return $this->render('endpoints.html.twig', [
             'endpoints' => (array)$response
