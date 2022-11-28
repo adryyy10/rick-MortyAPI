@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Trivia\Answers;
+namespace App\Controller\Trivia\Answer;
 
 use App\Entity\Answer;
 use Doctrine\Persistence\ManagerRegistry;
