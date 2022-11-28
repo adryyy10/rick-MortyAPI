@@ -9,3 +9,7 @@ characters:
 questions:
     path: /questions
     controller: App\Controller\Trivia\GetQuestionsController::getQuestions
+
+question/{id}:
+    path: /question/{id}
+    controller: App\Controller\Trivia\GetQuestionController::getQuestion
