@@ -3,7 +3,6 @@
 namespace App\Security;
 
 use App\Repository\ApiTokenRepository;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +19,10 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 class ApiTokenAuthenticator extends AbstractAuthenticator
 {
 
-    private UserRepository $userRepository;
+    private ApiTokenRepository $apiTokenRepository;
 
-    public function __construct(UserRepository $userRepository, ApiTokenRepository $apiTokenRepository)
+    public function __construct(ApiTokenRepository $apiTokenRepository)
     {
-        $this->userRepository       = $userRepository;
         $this->apiTokenRepository   = $apiTokenRepository;
     }
 
@@ -43,8 +41,8 @@ class ApiTokenAuthenticator extends AbstractAuthenticator
 
         return new SelfValidatingPassport(
             new UserBadge($apiToken, function($apiToken) {
+
                 $token = $this->apiTokenRepository->findOneBy(["token" => $apiToken]);
-                //$user = $this->userRepository->findByApiToken($apiToken);
 
                 if (empty($token)) {
                     throw new TokenNotFoundException();
