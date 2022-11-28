@@ -1,7 +1,11 @@
 index:
     path: /
-    controller: App\Controller\GetApiController::getData
+    controller: App\Controller\RickMorty\GetApiController::getData
 
 characters:
     path: /characters
-    controller: App\Controller\GetCharactersController::getData
+    controller: App\Controller\RickMorty\GetCharactersController::getData
+
+questions:
+    path: /questions
+    controller: App\Controller\Trivia\GetQuestionsController::getQuestions

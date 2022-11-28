@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\RickMorty;
 use \Symfony\Component\HttpFoundation\Response;
 
 interface Api

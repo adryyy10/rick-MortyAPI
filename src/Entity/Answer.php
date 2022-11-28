@@ -29,9 +29,8 @@ class Answer
 
     /**
      * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
-     * @ORM\JoinColumn(nullable=false)
      */
-    private $questionId;
+    private $question;
 
     public function getId(): ?int
     {
@@ -50,7 +49,7 @@ class Answer
         return $this;
     }
 
-    public function isIsCorrect(): ?bool
+    public function getIsCorrect(): ?bool
     {
         return $this->isCorrect;
     }
@@ -62,14 +61,14 @@ class Answer
         return $this;
     }
 
-    public function getQuestionId(): ?Question
+    public function getQuestion(): Question
     {
-        return $this->questionId;
+        return $this->question;
     }
 
-    public function setQuestionId(?Question $questionId): self
+    public function setQuestion(Question $question): self
     {
-        $this->questionId = $questionId;
+        $this->question = $question;
 
         return $this;
     }

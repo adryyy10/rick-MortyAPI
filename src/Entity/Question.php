@@ -30,7 +30,7 @@ class Question
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="questionId")
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", cascade={"persist", "remove"})
      */
     private $answers;
 
@@ -76,11 +76,11 @@ class Question
         return $this->answers;
     }
 
-    public function addAnswer(Answer $answer): self
+    /*public function addAnswer(Answer $answer): self
     {
         if (!$this->answers->contains($answer)) {
             $this->answers[] = $answer;
-            $answer->setQuestionId($this);
+            $answer->setQuestion($this);
         }
 
         return $this;
@@ -90,11 +90,11 @@ class Question
     {
         if ($this->answers->removeElement($answer)) {
             // set the owning side to null (unless already changed)
-            if ($answer->getQuestionId() === $this) {
-                $answer->setQuestionId(null);
+            if ($answer->getQuestion() === $this) {
+                $answer->setQuestion(null);
             }
         }
 
         return $this;
-    }
+    }*/
 }

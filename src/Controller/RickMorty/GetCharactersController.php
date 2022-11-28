@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\RickMorty;
 
 use App\Shared\JsonDecoder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
