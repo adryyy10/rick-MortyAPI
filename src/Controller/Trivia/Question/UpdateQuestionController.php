@@ -30,6 +30,9 @@ class UpdateQuestionController extends AbstractController
         int $id
     ): Response {
 
+        /** We cannot update unless we are ROLE_SUPER_ADMIN */
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to update without having ROLE_SUPER_ADMIN');       
+
         $entityManager  = $doctrine->getManager();
         $question       = $doctrine->getRepository(Question::class)->find($id);
 
