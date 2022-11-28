@@ -13,3 +13,11 @@ questions:
 question/{id}:
     path: /question/{id}
     controller: App\Controller\Trivia\GetQuestionController::getQuestion
+
+answers:
+    path: /answers
+    controller: App\Controller\Trivia\GetAnswersController::getAnswers
+
+answer/{id}:
+    path: /answer/{id}
+    controller: App\Controller\Trivia\GetAnswerController::getAnswer
