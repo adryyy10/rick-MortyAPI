@@ -1,43 +1,42 @@
 <?php
 
-namespace App\Controller\Trivia\Question;
+namespace App\Controller\Trivia\Answer;
 
-use App\Entity\Question;
+use App\Entity\Answer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-class DeleteQuestionController extends AbstractController
+class DeleteAnswerController extends AbstractController
 {
 
     /**
-     * @Route("/question/{id}", methods={"DELETE"}, name="app_trivia_delete_question")
+     * @Route("/answer/{id}", methods={"DELETE"}, name="app_trivia_delete_answer")
      * 
      * @param ManagerRegistry $doctrine
      * @param int $id
      * 
      * @return JsonReponse
      */
-    public function deleteQuestion(ManagerRegistry $doctrine, int $id): Response
+    public function deleteAnswer(ManagerRegistry $doctrine, int $id): Response
     {
 
         /** We cannot update unless we are ROLE_SUPER_ADMIN */
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to add without having ROLE_SUPER_ADMIN');
 
-        $question = $doctrine->getRepository(Question::class)->find($id);
+        $answer = $doctrine->getRepository(Answer::class)->find($id);
 
-        if (!$question) {
+        if (!$answer) {
             throw $this->createNotFoundException(
-                'No question found for id '.$id
+                'No answer found for id '.$id
             );
         }
 
         $entityManager = $doctrine->getManager();
-        $entityManager->remove($question);
+        $entityManager->remove($answer);
         $entityManager->flush();
 
-        return new Response('Deleted question');
+        return new Response('Deleted answer');
     }
 
 }
