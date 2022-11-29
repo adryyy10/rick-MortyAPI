@@ -14,8 +14,7 @@ class GetCategoriesController extends AbstractController
 {
 
     /**
-     * @Method({"GET"})
-     * @Route("/categories", name="app_trivia_categories")
+     * @Route("/categories", methods={"GET"}, name="app_trivia_categories")
      * 
      * @param ManagerRegistry $doctrine
      * 

@@ -4,7 +4,6 @@ namespace App\Controller\Trivia\Category;
 
 use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,8 +13,7 @@ class GetCategoryController extends AbstractController
 {
 
     /**
-     * @Method({"GET"})
-     * @Route("/category/{id}", name="app_trivia_category")
+     * @Route("/category/{id}", methods={"GET"}, name="app_trivia_get_category")
      * 
      * @param ManagerRegistry $doctrine
      * @param int $id

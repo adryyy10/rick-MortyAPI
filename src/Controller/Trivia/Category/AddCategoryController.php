@@ -1,45 +1,41 @@
 <?php
 
-namespace App\Controller\Trivia\Question;
+namespace App\Controller\Trivia\Category;
 
-use App\Entity\Question;
+use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AddQuestionController extends AbstractController
+class AddCategoryController extends AbstractController
 {
 
     /**
-     * @Route("/question", methods={"POST"}, name="app_trivia_add_question")
+     * @Route("/category", methods={"POST"}, name="app_trivia_add_category")
      * 
      * @param Request $request
      * @param ManagerRegistry $doctrine
      * 
      * @return JsonReponse
      */
-    public function add(
-        Request $request,
-        ManagerRegistry $doctrine
-    ): Response {
-
+    public function add(Request $request, ManagerRegistry $doctrine)
+    {
         /** We cannot update unless we are ROLE_SUPER_ADMIN */
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to add without having ROLE_SUPER_ADMIN');
-        
+
         $entityManager = $doctrine->getManager();
 
         /** Getting data from request */
-        $statement = $request->get('statement');
-        $type      = (int)$request->get('type');
+        $title = $request->get('title');
 
-        /** Add in DB */
-        $question = Question::addOrUpdate(null, $statement, $type);
-        $entityManager->persist($question);
+        $category = Category::addOrUpdate(null, $title);
+        $entityManager->persist($category);
         $entityManager->flush();
 
-        return new Response('Saved new question with id '.$question->getId());
+        return new Response('Saved new category with id '.$category->getId());
     }
 
 }

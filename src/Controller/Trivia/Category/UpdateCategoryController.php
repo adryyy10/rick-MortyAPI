@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Trivia\Question;
+namespace App\Controller\Trivia\Category;
 
-use App\Entity\Question;
+use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,19 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UpdateQuestionController extends AbstractController
+class UpdateCategoryController extends AbstractController
 {
 
     /**
-     * 
-     * @Route("/question/{id}", methods={"PUT"}, name="app_trivia_update_question")
+     * @Route("/category/{id}", methods={"PUT"}, name="app_trivia_update_category")
      * 
      * @param ManagerRegistry $doctrine
      * @param int $id
      * 
      * @return JsonReponse
      */
-    public function updateQuestion(
+    public function updateCategory(
         Request $request,
         ManagerRegistry $doctrine, 
         int $id
@@ -33,21 +32,20 @@ class UpdateQuestionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to update without having ROLE_SUPER_ADMIN');       
 
         $entityManager  = $doctrine->getManager();
-        $question       = $doctrine->getRepository(Question::class)->find($id);
+        $category       = $doctrine->getRepository(Category::class)->find($id);
 
-        if (!$question) {
+        if (!$category) {
             throw $this->createNotFoundException(
-                'No question found for id '.$id
+                'No category found for id '.$id
             );
         }
 
         /** Getting data from request */
-        $statement = $request->get('statement');
-        $type      = $request->get('type');
+        $title = $request->get('title');
 
         /** Update in DB */
-        Question::addOrUpdate($question, $statement, $type);
-        $entityManager->persist($question);
+        Category::addOrUpdate($category, $title);
+        $entityManager->persist($category);
         $entityManager->flush();
 
         return new JsonResponse(

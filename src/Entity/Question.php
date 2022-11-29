@@ -101,6 +101,8 @@ class Question
      * @param string $statement
      * @param int $type
      * 
+     * @return Question
+     * 
      */
     public static function addOrUpdate(
         ?Question $question, 
