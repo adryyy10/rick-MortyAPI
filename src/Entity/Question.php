@@ -6,6 +6,7 @@ use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
@@ -34,9 +35,11 @@ class Question
      */
     private $answers;
 
-    public function __construct()
+    public function __construct(string $statement, int $type)
     {
-        $this->answers = new ArrayCollection();
+        $this->statement    = $statement;
+        $this->type         = $type;
+        $this->answers      = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,7 +52,7 @@ class Question
         return $this->statement;
     }
 
-    public function setStatement(string $statement): self
+    private function setStatement(string $statement): self
     {
         $this->statement = $statement;
 
@@ -61,7 +64,7 @@ class Question
         return $this->type;
     }
 
-    public function setType(int $type): self
+    private function setType(int $type): self
     {
         $this->type = $type;
 
@@ -74,6 +77,47 @@ class Question
     public function getAnswers(): Collection
     {
         return $this->answers;
+    }
+
+    private function validateBusinessLogic(string $statement,int $type)
+    {
+        if (empty($statement) || strlen($statement) < 3) {
+            throw new InvalidArgumentException("Invalid Statement");
+        }
+
+        if ($type <= 0) {
+            throw new InvalidArgumentException("Invalid Category type");
+        }
+    }
+
+    /**
+     * 
+     * This method creates a new questions and fills it with data
+     * 
+     * This method is static because it's trying to follow a more DDD approach where the Entity 
+     * is rich in business logic instead of being anemic and the setters are private.
+     * 
+     * @param ?Question $question
+     * @param string $statement
+     * @param int $type
+     * 
+     */
+    public static function addOrUpdate(
+        ?Question $question, 
+        string $statement,
+        int $type
+    ): self {
+        if (empty($question)) {
+            $question = new self($statement, $type);
+        }
+
+        /** Validate business entity */
+        $question->validateBusinessLogic($statement, $type);
+
+        $question->setStatement($statement);
+        $question->setType($type);
+
+        return $question;
     }
 
     /*public function addAnswer(Answer $answer): self

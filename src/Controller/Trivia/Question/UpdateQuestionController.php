@@ -4,8 +4,8 @@ namespace App\Controller\Trivia\Question;
 
 use App\Entity\Question;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,8 +46,9 @@ class UpdateQuestionController extends AbstractController
         $statement = $request->get('statement');
         $type      = $request->get('type');
 
-        $question->setStatement($statement);
-        $question->setType($type);
+        /** Update in DB */
+        Question::addOrUpdate($question, $statement, $type);
+        $entityManager->persist($question);
         $entityManager->flush();
 
         return new JsonResponse(
