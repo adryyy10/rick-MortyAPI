@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AnswerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * @ORM\Entity(repositoryClass=AnswerRepository::class)
@@ -32,6 +33,16 @@ class Answer
      */
     private $question;
 
+    public function __construct(
+        string $title, 
+        bool $isCorrect, 
+        Question $question
+    ) {
+        $this->title        = $title;
+        $this->isCorrect    = $isCorrect;
+        $this->question     = $question;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -42,7 +53,7 @@ class Answer
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    private function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -54,7 +65,7 @@ class Answer
         return $this->isCorrect;
     }
 
-    public function setIsCorrect(bool $isCorrect): self
+    private function setIsCorrect(bool $isCorrect): self
     {
         $this->isCorrect = $isCorrect;
 
@@ -66,10 +77,49 @@ class Answer
         return $this->question;
     }
 
-    public function setQuestion(Question $question): self
+    private function setQuestion(Question $question): self
     {
         $this->question = $question;
 
         return $this;
+    }
+
+    private function validateBusinessLogic(string $title, bool $isCorrect, Question $question) 
+    {
+        if (empty($title) || strlen($title) < 3) {
+            throw new InvalidArgumentException("Invalid title");
+        }
+
+        if (is_null($isCorrect) ) {
+            throw new InvalidArgumentException("Invalid isCorrect value");
+        }
+
+        if (empty($question) ) {
+            throw new InvalidArgumentException("Invalid question");
+        }
+    }
+
+    public static function addOrUpdate(
+        ?Answer $answer,
+        string $title,
+        bool $isCorrect,
+        Question $question
+    ): self {
+        if (empty($answer)) {
+            $answer = new self(
+                $title,
+                $isCorrect,
+                $question
+            );
+        }
+
+        /** Validate business entity */
+        $answer->validateBusinessLogic($title, $isCorrect, $question);
+
+        $answer->setTitle($title);
+        $answer->setIsCorrect($isCorrect);
+        $answer->setQuestion($question);
+
+        return $answer;
     }
 }
