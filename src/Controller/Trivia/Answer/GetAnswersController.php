@@ -4,7 +4,6 @@ namespace App\Controller\Trivia\Answer;
 
 use App\Entity\Answer;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,8 +13,7 @@ class GetAnswersController extends AbstractController
 {
 
     /**
-     * @Method({"GET"})
-     * @Route("/answers", name="app_trivia_answers")
+     * @Route("/answers", methods={"GET"}, name="app_trivia_get_answers")
      * 
      * @param ManagerRegistry $doctrine
      * 
