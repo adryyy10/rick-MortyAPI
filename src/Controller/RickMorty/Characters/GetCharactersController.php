@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller\RickMorty;
+namespace App\Controller\RickMorty\Characters;
 
+use App\Controller\RickMorty\Api;
 use App\Shared\JsonDecoder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
