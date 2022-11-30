@@ -7,22 +7,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GetCharactersController extends AbstractController implements Api
+class GetCharacterController extends AbstractController implements Api
 {
 
     /**
-     * @Route("/api/character", methods={"GET"}, name="app_rick_morty_get_characters")
+     * @Route("/api/character/{id}", methods={"GET"}, name="app_rick_morty_get_character")
      * 
      * @return Response
      */
     public function getData(?int $id = null): Response
     {
-        $jsonData = file_get_contents(self::API_CHARACTERS);
+        $jsonData = file_get_contents(self::API_CHARACTERS . "/" . $id);
 
         $response = JsonDecoder::jsonDecode($jsonData);
 
-        return $this->render('characters.html.twig', [
-            'characters' => $response->results
+        return $this->render('character.html.twig', [
+            'character' => $response
         ]);
     }
 

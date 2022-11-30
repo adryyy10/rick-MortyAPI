@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class GetApiController extends AbstractController implements Api
 {
 
-    public function getData(): Response
+    public function getData(?int $id = null): Response
     {
         $jsonData = file_get_contents(self::API_URL);
 

@@ -11,6 +11,6 @@ interface Api
     public const API_LOCATIONS  = 'https://rickandmortyapi.com/api/locations';
     public const API_EPISODES   = 'https://rickandmortyapi.com/api/episodes';
     
-    public function getData(): Response;
+    public function getData(?int $id = null): Response;
 
 }
