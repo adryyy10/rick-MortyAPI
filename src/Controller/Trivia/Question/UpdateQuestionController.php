@@ -18,6 +18,7 @@ class UpdateQuestionController extends AbstractController
      * 
      * @Route("/question/{id}", methods={"PUT"}, name="app_trivia_update_question")
      * 
+     * @param Request $request
      * @param ManagerRegistry $doctrine
      * @param int $id
      * 

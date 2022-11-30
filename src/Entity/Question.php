@@ -79,7 +79,14 @@ class Question
         return $this->answers;
     }
 
-    private function validateBusinessLogic(string $statement,int $type)
+    /**
+     * This method validate that the incoming data follow some rules
+     * 
+     * @param string $statement
+     * @param int $type
+     * 
+     */
+    private function validateBusinessLogic(string $statement, int $type)
     {
         if (empty($statement) || strlen($statement) < 3) {
             throw new InvalidArgumentException("Invalid Statement");
@@ -92,7 +99,7 @@ class Question
 
     /**
      * 
-     * This method creates a new questions and fills it with data
+     * This method creates or updates a question and fills it with data
      * 
      * This method is static because it's trying to follow a more DDD approach where the Entity 
      * is rich in business logic instead of being anemic and the setters are private.
@@ -121,26 +128,4 @@ class Question
 
         return $question;
     }
-
-    /*public function addAnswer(Answer $answer): self
-    {
-        if (!$this->answers->contains($answer)) {
-            $this->answers[] = $answer;
-            $answer->setQuestion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAnswer(Answer $answer): self
-    {
-        if ($this->answers->removeElement($answer)) {
-            // set the owning side to null (unless already changed)
-            if ($answer->getQuestion() === $this) {
-                $answer->setQuestion(null);
-            }
-        }
-
-        return $this;
-    }*/
 }

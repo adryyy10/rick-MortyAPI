@@ -84,6 +84,14 @@ class Answer
         return $this;
     }
 
+    /**
+     * This method validate that the incoming data follow some validations
+     * 
+     * @param string $title
+     * @param bool $isCorrect
+     * @param Question $question
+     * 
+     */
     private function validateBusinessLogic(string $title, bool $isCorrect, Question $question) 
     {
         if (empty($title) || strlen($title) < 3) {
@@ -99,6 +107,21 @@ class Answer
         }
     }
 
+    /**
+     * 
+     * This method creates or updates an answer and fills it with data
+     * 
+     * This method is static because it's trying to follow a more DDD approach where the Entity 
+     * is rich in business logic instead of being anemic and the setters are private.
+     * 
+     * @param ?Answer $answer
+     * @param string $title
+     * @param int $isCorrect
+     * @param Question $question
+     * 
+     * @return Answer
+     * 
+     */
     public static function addOrUpdate(
         ?Answer $answer,
         string $title,

@@ -44,6 +44,12 @@ class Category
         return $this;
     }
 
+    /**
+     * This method validate that the incoming data follow some rules
+     * 
+     * @param string $title
+     * 
+     */
     private function validateBusinessLogic(string $title)
     {
         if (empty($title) || strlen($title) < 3) {

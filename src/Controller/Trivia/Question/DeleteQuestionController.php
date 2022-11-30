@@ -33,6 +33,7 @@ class DeleteQuestionController extends AbstractController
             );
         }
 
+        /** Delete */
         $entityManager = $doctrine->getManager();
         $entityManager->remove($question);
         $entityManager->flush();

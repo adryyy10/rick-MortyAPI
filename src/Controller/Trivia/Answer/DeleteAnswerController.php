@@ -6,6 +6,7 @@ use App\Entity\Answer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DeleteAnswerController extends AbstractController
 {

@@ -39,7 +39,7 @@ class AddQuestionController extends AbstractController
         $entityManager->persist($question);
         $entityManager->flush();
 
-        return new Response('Saved new question with id '.$question->getId());
+        return new Response('Saved new question with id '. $question->getId());
     }
 
 }

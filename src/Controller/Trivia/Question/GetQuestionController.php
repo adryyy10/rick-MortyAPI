@@ -34,18 +34,18 @@ class GetQuestionController extends AbstractController
             'id'        => $question->getId(),
             'statement' => $question->getStatement(),
             'category'  => $question->getType(),
-            'answers'   => $this->getAnswersByQuestion($question)
+            'answers'   => $this->getAnswersByQuestionAsArray($question)
         ]);
     }
 
     /**
-     * Get the answers by the Question
+     * Get the answers by the Question as an array instead of a collection
      * 
      * @param Question $question
      * 
      * @return array
      */
-    private function getAnswersByQuestion(Question $question): array
+    private function getAnswersByQuestionAsArray(Question $question): array
     {
         $answers            = [];
         $questionAnswers    = $question->getAnswers();

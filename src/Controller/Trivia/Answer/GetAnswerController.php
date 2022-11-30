@@ -37,9 +37,19 @@ class GetAnswerController extends AbstractController
         ]);
     }
 
+    /**
+     * Get question by Answer as an array instead of a collection
+     * 
+     * @param Answer $answer
+     * 
+     * @return array
+     */
     private function getQuestionByAnswer(Answer $answer): array
     {
         $question = $answer->getQuestion();
+
+        if (empty($question)) return [];
+
         return [
             'id'        => $question->getId(),
             'statement' => $question->getStatement(),

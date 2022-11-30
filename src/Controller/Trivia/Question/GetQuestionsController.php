@@ -28,7 +28,7 @@ class GetQuestionsController extends AbstractController
         if (!empty($questions)) {
             foreach ($questions as $question) {
 
-                $answers = $this->getAnswersByQuestion($question);
+                $answers = $this->getAnswersByQuestionAsArray($question);
     
                 array_push($questionnaire, [
                     'id'        => $question->getId(),
@@ -43,13 +43,13 @@ class GetQuestionsController extends AbstractController
     }
 
     /**
-     * Get the answers by the Question
+     * Get the answers by the Question as an array instead of a Collection
      * 
      * @param Question $question
      * 
      * @return array
      */
-    private function getAnswersByQuestion(Question $question): array
+    private function getAnswersByQuestionAsArray(Question $question): array
     {
         $answers            = [];
         $questionAnswers    = $question->getAnswers();

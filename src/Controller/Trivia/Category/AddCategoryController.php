@@ -31,11 +31,12 @@ class AddCategoryController extends AbstractController
         /** Getting data from request */
         $title = $request->get('title');
 
+        /** Add in DB */
         $category = Category::addOrUpdate(null, $title);
         $entityManager->persist($category);
         $entityManager->flush();
 
-        return new Response('Saved new category with id '.$category->getId());
+        return new Response('Saved new category with id '. $category->getId());
     }
 
 }

@@ -33,6 +33,7 @@ class DeleteCategoryController extends AbstractController
             );
         }
 
+        /** Delete */
         $entityManager = $doctrine->getManager();
         $entityManager->remove($category);
         $entityManager->flush();
