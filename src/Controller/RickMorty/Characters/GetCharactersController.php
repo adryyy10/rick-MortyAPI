@@ -12,7 +12,7 @@ class GetCharactersController extends AbstractController implements Api
 {
 
     /**
-     * @Route("/api/character", methods={"GET"}, name="app_rick_morty_get_characters")
+     * @Route("/api/characters", methods={"GET"}, name="app_rick_morty_get_characters")
      * 
      * @return Response
      */
